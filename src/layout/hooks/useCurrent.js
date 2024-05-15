@@ -13,7 +13,7 @@ export default (options) => {
         key,
         path,
         label,
-    } : null);
+    } : {});
     useEffect(() => {
         if (!isTag) return
         if (key === current.id) return

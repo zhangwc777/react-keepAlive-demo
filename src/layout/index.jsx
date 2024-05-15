@@ -43,7 +43,6 @@ export default () => {
         getMaxId,
         current
     })
-
     const tagsNode = tags?.map(item => <NavLink
         key={item.key}
         to={item.path + (item.id ? `?id=${item.id}` : "")}

@@ -18,12 +18,12 @@ export default (options) => {
     const [tags, setTags] = useLocalStorageState("tags", {
         // defaultValue 应该是当前current。或者空数组
         // 如果是已有tags，并且是直接输入url呢
-        defaultValue: current ? [current] : []
+        defaultValue: Object.keys(current).length ? [current] : []
     });
     useEffect(() => {
         // id=path+多开id
         const is = tags.some(item => item.id === current.id)
-        if (is || !current) return
+        if (is || !Object.keys(current).length ) return
         // 监听current
         // 因为current是监听了url路径
         // 所以这里每次都更新~
@@ -32,7 +32,8 @@ export default (options) => {
             ...tags,
             current
         ])
-    }, [current])
+    }, [current]);
+    console.log(tags,"tags");
     const getMaxId = () => Number(_max(tags, (item) => Number(item.id))?.id) || 0;
 
     const handleNavigate = (route) => {
