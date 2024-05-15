@@ -1,18 +1,13 @@
 import { useMemo } from "react";
 import { useAliveController } from "react-activation";
 import { random as _random } from "radash"
-import createFloat from "../utils/createFloat"
 export default (options) => {
-    const { current, setCurrent } = options;
+    const { current } = options;
 
-    const { clear } = useAliveController();
+    const { clear,refresh } = useAliveController();
 
     const handleRefreshCurrent = () => {
-        // 刷新当前只能使用key刷新，此key不能绑定在keepAlive上
-        const componentKey = createFloat(0, 1, [0, 1]);
-        setCurrent({
-            componentKey
-        })
+        refresh(current.key)
     }
     const _clear = () => {
         clear();

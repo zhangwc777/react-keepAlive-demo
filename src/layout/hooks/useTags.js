@@ -20,11 +20,10 @@ export default (options) => {
         // 如果是已有tags，并且是直接输入url呢
         defaultValue: current ? [current] : []
     });
-
     useEffect(() => {
         // id=path+多开id
         const is = tags.some(item => item.id === current.id)
-        if (is) return
+        if (is || !current) return
         // 监听current
         // 因为current是监听了url路径
         // 所以这里每次都更新~
@@ -34,7 +33,7 @@ export default (options) => {
             current
         ])
     }, [current])
-    const getMaxId = () => parseInt(_max(tags, (item) => item.id)?.id) || 0;
+    const getMaxId = () => Number(_max(tags, (item) => Number(item.id))?.id) || 0;
 
     const handleNavigate = (route) => {
         const maxId = getMaxId() + 1
@@ -55,7 +54,7 @@ export default (options) => {
         return () => {
             const route = getCurrentRoutes(path);
             // 优化避免重复点击同一按钮
-            if (path === current.path && !route.openMore) return
+            if (path === current?.path && !route?.openMore) return
             if (!route) return
             handleNavigate(route)
         }

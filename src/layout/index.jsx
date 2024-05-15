@@ -1,5 +1,5 @@
-import {  NavLink, useSearchParams, useOutlet } from "react-router-dom";
-import { useMemo,  } from "react"
+import { NavLink, useSearchParams, useOutlet } from "react-router-dom";
+import { useMemo, } from "react"
 import useKeepAlive from "./hooks/useKeepAlive"
 import useCurrent from "./hooks/useCurrent"
 import useTags from "./hooks/useTags"
@@ -21,7 +21,6 @@ export default () => {
     // 也不知道下面的结构是否稳定
     const route = el?.props?.children?.props?.match?.route;
     const [searchParams] = useSearchParams();
-
     const id = searchParams.get("id");
     const {
         tag,
@@ -30,13 +29,12 @@ export default () => {
         label,
         keepAlive
     } = route || {}
-    const isTag = tag !== false;
-    const isOpenMore = openMore === true;
-    const isKeepAlive = keepAlive !== false
+    const isTag = Boolean(route && tag !== false);
+    const isOpenMore = Boolean(route && openMore === true);
+    const isKeepAlive = Boolean(route && keepAlive !== false)
     // current 是利用effect监听url 自动设置current
     const [current, setCurrent] = useCurrent({ isTag, path, label, id });
     const [tags, { pushTag, getMaxId }] = useTags({ current, isOpenMore, id })
-
     const [{
         refreshCurrent,
         clear

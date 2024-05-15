@@ -13,9 +13,9 @@ export default (WrappedComponent) => {
                 name={current?.key}
                 // 添加
                 // cacheKey={current?.key}
-                id={current.key}
+                id={current?.key}
             >
-                <WrappedComponent key={current.componentKey}/>
+                <WrappedComponent />
             </Wrapped>
         );
     };

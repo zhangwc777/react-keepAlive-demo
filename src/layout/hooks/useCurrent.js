@@ -13,7 +13,6 @@ export default (options) => {
         key,
         path,
         label,
-        componentKey:key
     } : null);
     useEffect(() => {
         if (!isTag) return
