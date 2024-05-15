@@ -1,14 +1,12 @@
 import { useLocalStorageState, useMemoizedFn } from "ahooks"
-import { useMemo, useRef, useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { useGlobalContext } from "../../hooks/useGlobalContext";
 import { max as _max } from "radash"
 export default (options) => {
     const {
         current,
-        isTag,
         isOpenMore,
-        id,
     } = options;
     const routes = useGlobalContext();
     const getCurrentRoutes = (path) => {
@@ -36,16 +34,14 @@ export default (options) => {
             current
         ])
     }, [current])
-    console.log(tags, "tags", isOpenMore);
-    const getMaxId = () =>parseInt( _max(tags, (item) => item.id)?.id)||0;
+    const getMaxId = () => parseInt(_max(tags, (item) => item.id)?.id) || 0;
 
     const handleNavigate = (route) => {
+        const maxId = getMaxId() + 1
         // 需要知道点击的是否是 多开页。
         // 点击的可能是当前，重复点击
         // 点击的可能是非当前
-        // console.log('%c ======>>>>>>>>', 'color:orange;', isOpenMore, path, 35, current)
-        const maxId = getMaxId()+1
-        console.log('%c ======>>>>>>>>','color:orange;',maxId,"maxId")
+        // 所以在handlePush 手动find。path拿到的router信息🕐是最新的
         const _path = route.path + (route.openMore ? `?id=${maxId}` : "")
         navigate(_path)
     }
@@ -57,8 +53,8 @@ export default (options) => {
     // 点击时，还需知道当前路由是否是多开路由
     const handlePush = (path) => {
         return () => {
-            // 优化避免重复点击同一按钮
             const route = getCurrentRoutes(path);
+            // 优化避免重复点击同一按钮
             if (path === current.path && !route.openMore) return
             if (!route) return
             handleNavigate(route)

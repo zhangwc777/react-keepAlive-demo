@@ -1,6 +1,5 @@
-import { Outlet, NavLink, useSearchParams, useParams, useNavigate, useOutlet } from "react-router-dom";
-import { useState, useRef, cloneElement, useMemo } from "react"
-import KeepAlive, { useAliveController } from "react-activation"
+import {  NavLink, useSearchParams, useOutlet } from "react-router-dom";
+import { useMemo,  } from "react"
 import useKeepAlive from "./hooks/useKeepAlive"
 import useCurrent from "./hooks/useCurrent"
 import useTags from "./hooks/useTags"
@@ -34,7 +33,6 @@ export default () => {
     const isTag = tag !== false;
     const isOpenMore = openMore === true;
     const isKeepAlive = keepAlive !== false
-    console.log(openMore, isOpenMore, "isOpenMore");
     // current 是利用effect监听url 自动设置current
     const [current, setCurrent] = useCurrent({ isTag, path, label, id });
     const [tags, { pushTag, getMaxId }] = useTags({ current, isOpenMore, id })

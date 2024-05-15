@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo,memo } from 'react';
 import KeepAlive from 'react-activation';
 import { useLayoutPropsContext } from "../hooks/useLayoutPropsContext"
 export default (WrappedComponent) => {
@@ -8,7 +8,6 @@ export default (WrappedComponent) => {
         const Wrapped = useMemo(() => {
             return isKeepAlive ? KeepAlive : React.Fragment;
         }, [isKeepAlive]);
-        console.log(current,"componentKey");
         return (
             <Wrapped
                 name={current?.key}
@@ -21,5 +20,5 @@ export default (WrappedComponent) => {
         );
     };
 
-    return WithKeepAlive;
+    return memo(WithKeepAlive);
 };

@@ -1,7 +1,5 @@
-import KeepAlive, { useAliveController } from "react-activation"
 
-export default (props) => {
-    console.log("????");
+export default () => {
     return <div
     >
         input1:
