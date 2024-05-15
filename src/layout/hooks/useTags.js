@@ -33,7 +33,6 @@ export default (options) => {
             current
         ])
     }, [current]);
-    console.log(tags,"tags");
     const getMaxId = () => Number(_max(tags, (item) => Number(item.id))?.id) || 0;
 
     const handleNavigate = (route) => {
